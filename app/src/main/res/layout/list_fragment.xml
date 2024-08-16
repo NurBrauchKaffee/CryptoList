@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/listToolbar"
-        layout="@layout/toolbar_test" />
+        layout="@layout/list_toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listCrypto"

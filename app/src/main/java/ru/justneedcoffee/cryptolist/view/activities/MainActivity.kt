@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.chip.Chip
 import ru.justneedcoffee.cryptolist.R
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_fragment)
         setSupportActionBar(findViewById(R.id.listToolbar))
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 //        setContentView(R.layout.activity_main)
 //        navController = findNavController(R.id.navHostFragment)
 //        NavigationUI.setupActionBarWithNavController(this, navController)
