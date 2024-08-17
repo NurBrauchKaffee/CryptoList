@@ -11,11 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_medium"
+        style="@style/Theme.Name"
         android:text="Bitcoin"
         android:textAlignment="viewStart"
-        android:textColor="@color/black"
-        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/currImage"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,24 +22,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:fontFamily="@font/roboto"
+        style="@style/Theme.Subtext"
         android:text="BTC"
         android:textAlignment="viewStart"
-        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/currImage"
         app:layout_constraintTop_toBottomOf="@+id/currFullName" />
 
     <TextView
-        android:id="@+id/currValue"
+        android:id="@+id/currPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto_bold"
+        style="@style/Theme.Price"
         android:text="$ 28,560.95"
         android:textAlignment="viewEnd"
-        android:textColor="@color/black"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,12 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto"
+        style="@style/Theme.Subtext"
         android:text="+ 4.05%"
         android:textAlignment="viewEnd"
-        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currValue" />
+        app:layout_constraintTop_toBottomOf="@+id/currPrice" />
 
     <ImageView
         android:id="@+id/currImage"

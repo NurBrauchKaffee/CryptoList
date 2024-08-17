@@ -3,4 +3,17 @@
     <string name="usd">USD</string>
     <string name="rub">RUB</string>
     <string name="currency_list">Список криптовалют</string>
+    <string name="description">Описание</string>
+    <string name="categories">Категории</string>
+    <string name="placeholder_short">Lorem ipsum dolor sit amet.</string>
+    <string name="placeholder_long">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Duis quam ipsum, aliquam a diam eu, interdum sagittis nunc.
+        Quisque eget urna ex. Phasellus consectetur convallis est, id
+        feugiat eros volutpat a. Aliquam ex mi, mollis tristique mollis eget,
+        egestas nec neque. Etiam dignissim hendrerit est,
+        in mollis mi volutpat sollicitudin. Nullam consequat turpis nec congue ultricies.
+        Morbi metus dui, posuere sed quam fringilla, mattis pellentesque ex.
+        Etiam mattis odio non facilisis tempus. Etiam erat lorem, congue a malesuada nec,
+        egestas non leo. Vestibulum lorem urna, scelerisque in nisi et, vehicula finibus quam. </string>
 </resources>
