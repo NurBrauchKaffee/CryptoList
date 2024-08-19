@@ -1,6 +1,5 @@
 package ru.justneedcoffee.cryptolist.view.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,12 +50,12 @@ class CurrencyViewHolder(private val view: View, private val onClickListener: (C
                 val priceChange = currency.priceChange.toDouble()
                 val priceChangeString = format(Locale.US, "%.3f", priceChange.absoluteValue)
                 if (priceChange > 0) {
-                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.positive_dynamic,
+                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.color_positive_dynamic,
                         null))
                     listCurrencyDynamic.text = view.context.getString(R.string.positive_dynamic,
                         priceChangeString)
                 } else {
-                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.negative_dynamic,
+                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.color_negative_dynamic,
                         null))
                     listCurrencyDynamic.text = view.context.getString(R.string.negative_dynamic,
                         priceChangeString)
