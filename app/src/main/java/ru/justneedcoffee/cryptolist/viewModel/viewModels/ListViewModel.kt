@@ -9,9 +9,9 @@ import ru.justneedcoffee.cryptolist.model.models.CurrencyItem
 import ru.justneedcoffee.cryptolist.viewModel.repositories.CurrencyRepository
 
 class ListViewModel(application: Application) : AndroidViewModel(application) {
-    private val currencyRepository = CurrencyRepository.getInstance(application)
+    private val currencyRepository = CurrencyRepository.getInstance()
 
-    val currencyListLiveData: LiveData<List<CurrencyItem>> = liveData(Dispatchers.IO) {
-        emitSource(currencyRepository.getCurrencyListLiveData())
+    fun currencyListLiveData(currencyType: String): LiveData<List<CurrencyItem>> = liveData(Dispatchers.IO) {
+        emitSource(currencyRepository.getCurrencyListLiveData(currencyType))
     }
 }

@@ -1,6 +1,7 @@
 package ru.justneedcoffee.cryptolist.view.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -33,7 +34,8 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
             bundle.getString(CURRENCY_ID)?.let {
                 viewModel.currencyLiveData(it).observe(viewLifecycleOwner) { currency ->
                     Picasso.get().load(currency.image["large"]).into(currencyImage)
-                    currencyDescription.text = currency.description["en"]
+                    currencyDescription.text = Html.fromHtml(currency.description["en"],
+                        Html.FROM_HTML_MODE_COMPACT)
                     currencyCategories.text = currency.categories.joinToString()
                 }
             }

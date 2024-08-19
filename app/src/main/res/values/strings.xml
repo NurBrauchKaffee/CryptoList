@@ -2,9 +2,18 @@
     <string name="app_name">CryptoList</string>
     <string name="usd">USD</string>
     <string name="rub">RUB</string>
+
+    <string name="usd_symbol">$ %1$s</string>
+    <string name="rub_symbol">₽ %1$s</string>
+
+    <string name="positive_dynamic">+ %1$s%%</string>
+    <string name="negative_dynamic">- %1$s%%</string>
+
     <string name="currency_list">Список криптовалют</string>
+
     <string name="description">Описание</string>
     <string name="categories">Категории</string>
+
     <string name="placeholder_short">Lorem ipsum dolor sit amet.</string>
     <string name="placeholder_long">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

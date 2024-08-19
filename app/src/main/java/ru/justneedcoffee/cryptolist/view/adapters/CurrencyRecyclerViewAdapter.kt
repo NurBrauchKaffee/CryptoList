@@ -1,5 +1,6 @@
 package ru.justneedcoffee.cryptolist.view.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.squareup.picasso.Picasso
 import ru.justneedcoffee.cryptolist.R
 import ru.justneedcoffee.cryptolist.model.models.CurrencyItem
+import java.lang.String.format
+import java.util.Locale
+import kotlin.math.absoluteValue
 
 class CurrencyRecyclerViewAdapter(private val onClickListener: (CurrencyItem) -> Unit) :
     ListAdapter<CurrencyItem, CurrencyViewHolder>(CurrencyDiffCallback()) {
@@ -34,8 +38,29 @@ class CurrencyViewHolder(private val view: View, private val onClickListener: (C
                 Picasso.get().load(currency.image).into(view.findViewById<ImageView>(R.id.listCurrencyImage))
                 view.findViewById<TextView>(R.id.listCurrencyFullName).text = currency.fullName
                 view.findViewById<TextView>(R.id.listCurrencyShortName).text = currency.shortName.uppercase()
-                view.findViewById<TextView>(R.id.listCurrencyPrice).text = currency.price
-                view.findViewById<TextView>(R.id.listCurrencyDynamic).text = currency.priceChange
+
+                // price type handler
+                view.findViewById<TextView>(R.id.listCurrencyPrice).text = when (currency.priceType) {
+                    "rub" -> view.context.getString(R.string.rub_symbol, currency.price)
+                    "usd" -> view.context.getString(R.string.usd_symbol, currency.price)
+                    else -> currency.price
+                }
+
+                // price change handler
+                val listCurrencyDynamic = view.findViewById<TextView>(R.id.listCurrencyDynamic)
+                val priceChange = currency.priceChange.toDouble()
+                val priceChangeString = format(Locale.US, "%.3f", priceChange.absoluteValue)
+                if (priceChange > 0) {
+                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.positive_dynamic,
+                        null))
+                    listCurrencyDynamic.text = view.context.getString(R.string.positive_dynamic,
+                        priceChangeString)
+                } else {
+                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.negative_dynamic,
+                        null))
+                    listCurrencyDynamic.text = view.context.getString(R.string.negative_dynamic,
+                        priceChangeString)
+                }
             }
         }
 }

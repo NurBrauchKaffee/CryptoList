@@ -19,7 +19,8 @@ data class CurrencyItem(
     val price: String,
     @SerializedName("price_change_percentage_24h")
     @Expose
-    val priceChange: String
+    val priceChange: String,
+    var priceType: String
 )
 
 data class CurrencyDetail(

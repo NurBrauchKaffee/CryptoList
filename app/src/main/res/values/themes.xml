@@ -29,6 +29,10 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
+    <style name="Theme.PriceChange" parent="Theme.CryptoList">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+    </style>
     <style name="CurrencyChip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="android:textColor">@color/chip_text_color</item>

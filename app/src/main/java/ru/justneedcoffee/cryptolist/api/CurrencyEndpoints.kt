@@ -1,6 +1,5 @@
 package ru.justneedcoffee.cryptolist.api
 
-import androidx.lifecycle.LiveData
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
@@ -13,7 +12,7 @@ import ru.justneedcoffee.cryptolist.utils.RESPONSE_TYPE
 
 interface CurrencyEndpoints {
     @GET("api/v3/coins/markets")
-    suspend fun getCurrencyList(@Query("vs_currency") currencyType: String = "usd",
+    suspend fun getCurrencyList(@Query("vs_currency") currencyType: String,
                                 @Query("per_page") perPage: Int = PER_PAGE,
                                 @Header("x-cg-demo-api-key") key: String = API_KEY,
                                 @Header("accept") type: String = RESPONSE_TYPE): List<CurrencyItem>

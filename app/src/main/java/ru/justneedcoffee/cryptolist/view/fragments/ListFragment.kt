@@ -1,18 +1,22 @@
 package ru.justneedcoffee.cryptolist.view.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import ru.justneedcoffee.cryptolist.R
 import ru.justneedcoffee.cryptolist.utils.CURRENCY_ID
-import ru.justneedcoffee.cryptolist.viewModel.viewModels.ListViewModel
 import ru.justneedcoffee.cryptolist.view.adapters.CurrencyRecyclerViewAdapter
+import ru.justneedcoffee.cryptolist.viewModel.viewModels.ListViewModel
 
 class ListFragment : Fragment(R.layout.list_fragment) {
 
@@ -22,6 +26,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val listCrypto: RecyclerView = view.findViewById(R.id.listCrypto)
+        val chipGroup = view.findViewById<ChipGroup>(R.id.listChipGroup)
 
         listCrypto.apply {
             this.layoutManager = LinearLayoutManager(this.context)
@@ -31,8 +36,20 @@ class ListFragment : Fragment(R.layout.list_fragment) {
             }
         }
 
-        viewModel.currencyListLiveData.observe(viewLifecycleOwner) { currencyList ->
-            (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(currencyList)
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            val currencyType: String =
+                if (checkedId == View.NO_ID) ""
+                else group.findViewById<Chip>(checkedId).text.toString().lowercase()
+
+            currencyType.let { type ->
+                if (type.isEmpty()) {
+                    (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
+                } else {
+                    viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { currencyList ->
+                        (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(currencyList)
+                    }
+                }
+            }
         }
     }
 }
