@@ -70,6 +70,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
+    // Picasso
+    implementation(libs.picasso)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

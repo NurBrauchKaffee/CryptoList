@@ -1,23 +1,32 @@
-package ru.justneedcoffee.cryptolist.model
+package ru.justneedcoffee.cryptolist.model.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Currency(
+data class CurrencyItem(
     @Expose
     val id: String,
     @Expose
-    val symbol: String,
+    @SerializedName("symbol")
+    val shortName: String,
     @Expose
-    val name: String,
+    @SerializedName("name")
+    val fullName: String,
     @Expose
     val image: String,
     @SerializedName("current_price")
     @Expose
-    val price: Int,
+    val price: String,
     @SerializedName("price_change_percentage_24h")
     @Expose
-    val priceChange: Int,
+    val priceChange: String
+)
+
+data class CurrencyDetail(
+    @Expose
+    val name: String,
+    @Expose
+    val image: Map<String, String>,
     @Expose
     val description: Map<String, String>,
     @Expose
