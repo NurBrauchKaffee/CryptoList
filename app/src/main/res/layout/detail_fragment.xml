@@ -1,78 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="true">
 
-    <include
-        android:id="@+id/detailToolbar"
-        layout="@layout/detail_toolbar"/>
-
-    <ImageView
-        android:id="@+id/currencyImage"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="12dp"
-        android:contentDescription="Currency image."
-        android:src="@drawable/bitcoin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailToolbar"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/currencyDescriptionTitle"
-        style="@style/Theme.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintTop_toBottomOf="@+id/currencyImage" />
-
-    <TextView
-        android:id="@+id/currencyCategoriesTitle"
-        style="@style/Theme.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/categories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintTop_toBottomOf="@+id/currencyDescription" />
-
-    <TextView
-        android:id="@+id/currencyDescription"
-        style="@style/Theme.Text"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/placeholder_long"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintTop_toBottomOf="@+id/currencyDescriptionTitle" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/currencyCategories"
-        style="@style/Theme.Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/placeholder_short"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintTop_toBottomOf="@+id/currencyCategoriesTitle" />
+        <include
+            android:id="@+id/detailToolbar"
+            layout="@layout/detail_toolbar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/currencyImage"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="12dp"
+            android:contentDescription="Currency image."
+            android:src="@drawable/bitcoin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailToolbar"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/currencyDescriptionTitle"
+            style="@style/Theme.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintTop_toBottomOf="@+id/currencyImage" />
+
+        <TextView
+            android:id="@+id/currencyCategoriesTitle"
+            style="@style/Theme.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/categories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintTop_toBottomOf="@+id/currencyDescription" />
+
+        <TextView
+            android:id="@+id/currencyDescription"
+            style="@style/Theme.Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/placeholder_long"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintTop_toBottomOf="@+id/currencyDescriptionTitle" />
+
+        <TextView
+            android:id="@+id/currencyCategories"
+            style="@style/Theme.Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="34dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/placeholder_short"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currencyCategoriesTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

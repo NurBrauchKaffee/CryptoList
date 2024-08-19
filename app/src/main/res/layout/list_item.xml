@@ -2,37 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/currFullName"
+        android:id="@+id/listCurrencyFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         style="@style/Theme.Name"
         android:text="Bitcoin"
         android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/currImage"
+        app:layout_constraintStart_toEndOf="@+id/listCurrencyImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/currShortName"
+        android:id="@+id/listCurrencyPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        style="@style/Theme.Subtext"
-        android:text="BTC"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/currImage"
-        app:layout_constraintTop_toBottomOf="@+id/currFullName" />
-
-    <TextView
-        android:id="@+id/currPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         style="@style/Theme.Price"
         android:text="$ 28,560.95"
@@ -41,23 +30,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/currDynamic"
+        android:id="@+id/listCurrencyShortName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        style="@style/Theme.Subtext"
+        android:text="BTC"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/listCurrencyImage"
+        app:layout_constraintTop_toBottomOf="@+id/listCurrencyFullName" />
+
+    <TextView
+        android:id="@+id/listCurrencyDynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
         style="@style/Theme.Subtext"
         android:text="+ 4.05%"
         android:textAlignment="viewEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/listCurrencyPrice" />
 
     <ImageView
-        android:id="@+id/currImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/listCurrencyImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/bitcoin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

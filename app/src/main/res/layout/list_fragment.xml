@@ -12,15 +12,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listCrypto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/listToolbar"
-        tools:itemCount="10"
-        tools:listitem="@layout/list_item" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/listToolbar"
-        android:text="Test"/>
+        android:layout_below="@+id/listToolbar"
+        android:layout_marginTop="8dp"
+        tools:listitem="@layout/list_item" />
 </RelativeLayout>
