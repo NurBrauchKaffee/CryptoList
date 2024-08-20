@@ -25,8 +25,12 @@ class ListFragment : Fragment(R.layout.list_fragment) {
 
         val listCrypto: RecyclerView = view.findViewById(R.id.listCrypto)
         val chipGroup: ChipGroup = view.findViewById(R.id.listChipGroup)
+
         val listProgressBar: ProgressBar = view.findViewById(R.id.listProgressBar)
         listProgressBar.visibility = View.GONE
+
+        val listErrorMessage = view.findViewById<View>(R.id.listErrorMessage)
+        listErrorMessage.visibility = View.GONE
 
         listCrypto.apply {
             this.layoutManager = LinearLayoutManager(this.context)
@@ -49,9 +53,13 @@ class ListFragment : Fragment(R.layout.list_fragment) {
                     listProgressBar.visibility = View.GONE
                     (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
                 } else {
-                    viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { currencyList ->
-                        (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(currencyList)
-                        listProgressBar.visibility = View.GONE
+                    viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { list ->
+                        if (list.isEmpty()) {
+                            listErrorMessage.visibility = View.VISIBLE
+                        } else {
+                            (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(list)
+                            listProgressBar.visibility = View.GONE
+                        }
                     }
                 }
             }

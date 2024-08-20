@@ -1,29 +1,44 @@
 package ru.justneedcoffee.cryptolist.viewModel.repositories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.justneedcoffee.cryptolist.api.CurrencyEndpoints
 import ru.justneedcoffee.cryptolist.api.RetrofitInstance
 import ru.justneedcoffee.cryptolist.model.models.CurrencyDetail
 import ru.justneedcoffee.cryptolist.model.models.CurrencyItem
+import ru.justneedcoffee.cryptolist.utils.ResultWrapper
 
 class CurrencyRepository {
     private val currencyCalls = RetrofitInstance.getInstance().create(CurrencyEndpoints::class.java)
 
-    suspend fun getCurrencyListLiveData(currencyType: String): LiveData<List<CurrencyItem>> {
+    suspend fun getCurrencyListLiveData(currencyType: String): ResultWrapper<List<CurrencyItem>> {
         val receivedList = currencyCalls.getCurrencyList(currencyType)
         receivedList.forEach { item ->
             item.priceType = currencyType
         }
-        val currencyList = MutableLiveData<List<CurrencyItem>>()
-        currencyList.postValue(receivedList)
-        return currencyList
+        return safeApiCall { receivedList }
     }
 
-    suspend fun getCurrencyByIdLiveData(currencyId: String): LiveData<CurrencyDetail> {
-        val currencyData = MutableLiveData<CurrencyDetail>()
-        currencyData.postValue(currencyCalls.getCurrencyById(currencyId))
-        return currencyData
+    suspend fun getCurrencyByIdLiveData(currencyId: String): ResultWrapper<CurrencyDetail> {
+        return safeApiCall { currencyCalls.getCurrencyById(currencyId) }
+    }
+
+    private suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResultWrapper<T> {
+        return withContext(Dispatchers.IO) {
+            try {
+                ResultWrapper.Success(apiCall.invoke())
+            } catch (throwable: Throwable) {
+                when (throwable) {
+                    is HttpException -> {
+                        ResultWrapper.Error(false, throwable.code(), throwable.response()?.errorBody())
+                    }
+                    else -> {
+                        ResultWrapper.Error(true)
+                    }
+                }
+            }
+        }
     }
 
     companion object {
