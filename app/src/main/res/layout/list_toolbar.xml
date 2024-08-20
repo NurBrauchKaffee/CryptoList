@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/listToolbarTitle"
+            android:layout_marginBottom="8dp"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
