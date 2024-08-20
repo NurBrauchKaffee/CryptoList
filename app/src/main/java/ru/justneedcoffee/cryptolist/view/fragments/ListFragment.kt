@@ -2,6 +2,7 @@ package ru.justneedcoffee.cryptolist.view.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import ru.justneedcoffee.cryptolist.viewModel.viewModels.ListViewModel
 class ListFragment : Fragment(R.layout.list_fragment) {
 
     private val viewModel by viewModels<ListViewModel>()
+    private lateinit var currencyType: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,6 +34,8 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         val listErrorMessage = view.findViewById<View>(R.id.listErrorMessage)
         listErrorMessage.visibility = View.GONE
 
+        val errorButton: Button = view.findViewById(R.id.errorButton)
+
         listCrypto.apply {
             this.layoutManager = LinearLayoutManager(this.context)
             this.adapter = CurrencyRecyclerViewAdapter { currency ->
@@ -40,30 +44,39 @@ class ListFragment : Fragment(R.layout.list_fragment) {
             }
         }
 
+        errorButton.setOnClickListener {
+            listProgressBar.visibility = View.VISIBLE
+            loadList(currencyType, listProgressBar, listErrorMessage, listCrypto)
+        }
+
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
             (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
             listErrorMessage.visibility = View.GONE
             listProgressBar.visibility = View.VISIBLE
 
-            val currencyType: String =
-                if (checkedId == View.NO_ID) ""
-                else group.findViewById<Chip>(checkedId).text.toString().lowercase()
+            currencyType = if (checkedId == View.NO_ID) ""
+            else group.findViewById<Chip>(checkedId).text.toString().lowercase()
 
             currencyType.let { type ->
                 if (type.isEmpty()) {
                     listProgressBar.visibility = View.GONE
                     (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
                 } else {
-                    viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { list ->
-                        if (list.isEmpty()) {
-                            listProgressBar.visibility = View.GONE
-                            listErrorMessage.visibility = View.VISIBLE
-                        } else {
-                            (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(list)
-                            listProgressBar.visibility = View.GONE
-                        }
-                    }
+                    loadList(type, listProgressBar, listErrorMessage, listCrypto)
                 }
+            }
+        }
+    }
+
+    private fun loadList(type: String, listProgressBar: ProgressBar, listErrorMessage: View, listCrypto: RecyclerView) {
+        viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { list ->
+            if (list.isEmpty()) {
+                listProgressBar.visibility = View.GONE
+                listErrorMessage.visibility = View.VISIBLE
+            } else {
+                (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(list)
+                listProgressBar.visibility = View.GONE
+                listErrorMessage.visibility = View.GONE
             }
         }
     }
