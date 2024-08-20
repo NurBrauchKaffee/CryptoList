@@ -5,6 +5,7 @@ import android.text.Html
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,16 +28,26 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         }
 
         val currencyImage: ImageView = view.findViewById(R.id.currencyImage)
+        val currencyDescriptionTitle: TextView = view.findViewById(R.id.currencyDescriptionTitle)
+        val currencyCategoriesTitle: TextView = view.findViewById(R.id.currencyCategoriesTitle)
         val currencyDescription: TextView = view.findViewById(R.id.currencyDescription)
         val currencyCategories: TextView = view.findViewById(R.id.currencyCategories)
+        val detailToolbarTitle: TextView = view.findViewById(R.id.detailToolbarTitle)
+        val detailProgressBar: ProgressBar = view.findViewById(R.id.detailProgressBar)
+        detailProgressBar.visibility = View.GONE
 
         arguments?.let { bundle ->
+            detailProgressBar.visibility = View.VISIBLE
             bundle.getString(CURRENCY_ID)?.let {
                 viewModel.currencyLiveData(it).observe(viewLifecycleOwner) { currency ->
                     Picasso.get().load(currency.image["large"]).into(currencyImage)
+                    currencyDescriptionTitle.text = getString(R.string.description)
+                    currencyCategoriesTitle.text = getString(R.string.categories)
                     currencyDescription.text = Html.fromHtml(currency.description["en"],
                         Html.FROM_HTML_MODE_COMPACT)
                     currencyCategories.text = currency.categories.joinToString()
+                    detailToolbarTitle.text = currency.name
+                    detailProgressBar.visibility = View.GONE
                 }
             }
         }

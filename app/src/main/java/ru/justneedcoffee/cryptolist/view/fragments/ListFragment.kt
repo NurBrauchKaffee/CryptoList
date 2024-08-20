@@ -1,11 +1,9 @@
 package ru.justneedcoffee.cryptolist.view.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
+import android.widget.ProgressBar
 import androidx.core.os.bundleOf
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,7 +24,9 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val listCrypto: RecyclerView = view.findViewById(R.id.listCrypto)
-        val chipGroup = view.findViewById<ChipGroup>(R.id.listChipGroup)
+        val chipGroup: ChipGroup = view.findViewById(R.id.listChipGroup)
+        val listProgressBar: ProgressBar = view.findViewById(R.id.listProgressBar)
+        listProgressBar.visibility = View.GONE
 
         listCrypto.apply {
             this.layoutManager = LinearLayoutManager(this.context)
@@ -37,16 +37,21 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         }
 
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
+            listProgressBar.visibility = View.VISIBLE
+
             val currencyType: String =
                 if (checkedId == View.NO_ID) ""
                 else group.findViewById<Chip>(checkedId).text.toString().lowercase()
 
             currencyType.let { type ->
                 if (type.isEmpty()) {
+                    listProgressBar.visibility = View.GONE
                     (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
                 } else {
                     viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { currencyList ->
                         (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(currencyList)
+                        listProgressBar.visibility = View.GONE
                     }
                 }
             }
