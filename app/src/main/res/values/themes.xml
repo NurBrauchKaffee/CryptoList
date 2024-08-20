@@ -3,6 +3,9 @@
     <style name="Theme.CryptoList" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:colorAccent">@color/color_main_orange</item>
+        <item name="android:colorPrimaryDark">@color/color_main_orange</item>
+        <item name="android:colorPrimary">@color/color_main_orange</item>
     </style>
     <style name="Theme.Title" parent="Theme.CryptoList">
         <item name="android:fontFamily">@font/roboto_medium</item>
