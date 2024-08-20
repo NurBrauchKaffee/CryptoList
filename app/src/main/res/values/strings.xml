@@ -14,6 +14,9 @@
     <string name="description">Описание</string>
     <string name="categories">Категории</string>
 
+    <string name="error_text">Произошла какая-то ошибка :(\n Попробуем снова?</string>
+    <string name="error_retry">Попробовать</string>
+
     <string name="placeholder_short">Lorem ipsum dolor sit amet.</string>
     <string name="placeholder_long">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
