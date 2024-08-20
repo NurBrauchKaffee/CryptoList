@@ -13,11 +13,7 @@ class CurrencyRepository {
     private val currencyCalls = RetrofitInstance.getInstance().create(CurrencyEndpoints::class.java)
 
     suspend fun getCurrencyListLiveData(currencyType: String): ResultWrapper<List<CurrencyItem>> {
-        val receivedList = currencyCalls.getCurrencyList(currencyType)
-        receivedList.forEach { item ->
-            item.priceType = currencyType
-        }
-        return safeApiCall { receivedList }
+        return safeApiCall { currencyCalls.getCurrencyList(currencyType) }
     }
 
     suspend fun getCurrencyByIdLiveData(currencyId: String): ResultWrapper<CurrencyDetail> {

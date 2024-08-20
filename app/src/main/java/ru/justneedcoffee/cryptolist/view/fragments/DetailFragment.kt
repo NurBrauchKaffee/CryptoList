@@ -33,21 +33,37 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         val currencyDescription: TextView = view.findViewById(R.id.currencyDescription)
         val currencyCategories: TextView = view.findViewById(R.id.currencyCategories)
         val detailToolbarTitle: TextView = view.findViewById(R.id.detailToolbarTitle)
+
         val detailProgressBar: ProgressBar = view.findViewById(R.id.detailProgressBar)
         detailProgressBar.visibility = View.GONE
 
+        val detailErrorMessage = view.findViewById<View>(R.id.detailErrorMessage)
+        detailErrorMessage.visibility = View.GONE
+
         arguments?.let { bundle ->
             detailProgressBar.visibility = View.VISIBLE
+
             bundle.getString(CURRENCY_ID)?.let {
                 viewModel.currencyLiveData(it).observe(viewLifecycleOwner) { currency ->
-                    Picasso.get().load(currency.image["large"]).into(currencyImage)
-                    currencyDescriptionTitle.text = getString(R.string.description)
-                    currencyCategoriesTitle.text = getString(R.string.categories)
-                    currencyDescription.text = Html.fromHtml(currency.description["en"],
-                        Html.FROM_HTML_MODE_COMPACT)
-                    currencyCategories.text = currency.categories.joinToString()
-                    detailToolbarTitle.text = currency.name
-                    detailProgressBar.visibility = View.GONE
+                    when (currency) {
+                        null -> {
+                            detailProgressBar.visibility = View.GONE
+                            detailErrorMessage.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            Picasso.get().load(currency.image["large"]).into(currencyImage)
+                            currencyDescriptionTitle.text = getString(R.string.description)
+                            currencyCategoriesTitle.text = getString(R.string.categories)
+                            currencyDescription.text = Html.fromHtml(
+                                currency.description["en"],
+                                Html.FROM_HTML_MODE_COMPACT
+                            )
+                            currencyCategories.text = currency.categories.joinToString()
+
+                            detailToolbarTitle.text = currency.name
+                            detailProgressBar.visibility = View.GONE
+                        }
+                    }
                 }
             }
         }
