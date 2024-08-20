@@ -42,6 +42,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
 
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
             (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(emptyList())
+            listErrorMessage.visibility = View.GONE
             listProgressBar.visibility = View.VISIBLE
 
             val currencyType: String =
@@ -55,6 +56,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
                 } else {
                     viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { list ->
                         if (list.isEmpty()) {
+                            listProgressBar.visibility = View.GONE
                             listErrorMessage.visibility = View.VISIBLE
                         } else {
                             (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(list)
