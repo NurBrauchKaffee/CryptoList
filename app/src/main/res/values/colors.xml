@@ -15,5 +15,5 @@
     <color name="color_text_orange">#FFAD25</color>
 
     <color name="color_positive_dynamic">#FF2A9D8F</color>
-    <color name="color_negative_dynamic">#FFEB5757</color>
+    <color name="color_main_red">#FFEB5757</color>
 </resources>

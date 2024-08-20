@@ -55,7 +55,7 @@ class CurrencyViewHolder(private val view: View, private val onClickListener: (C
                     listCurrencyDynamic.text = view.context.getString(R.string.positive_dynamic,
                         priceChangeString)
                 } else {
-                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.color_negative_dynamic,
+                    listCurrencyDynamic.setTextColor(view.context.resources.getColor(R.color.color_main_red,
                         null))
                     listCurrencyDynamic.text = view.context.getString(R.string.negative_dynamic,
                         priceChangeString)
