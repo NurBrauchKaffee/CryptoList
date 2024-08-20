@@ -12,6 +12,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     private val currencyRepository = CurrencyRepository.getInstance()
 
     fun currencyLiveData(id: String): LiveData<CurrencyDetail> = liveData(Dispatchers.IO) {
-        emitSource(currencyRepository.getCurrencyByIdLiveData(id))
+        //emitSource(currencyRepository.getCurrencyByIdLiveData(id))
     }
 }
