@@ -16,6 +16,7 @@
 
     <string name="error_text">Произошла какая-то ошибка :(\n Попробуем снова?</string>
     <string name="error_retry">Попробовать</string>
+    <string name="error_swipe_text">Произошла ошибка при загрузке</string>
 
     <string name="placeholder_short">Lorem ipsum dolor sit amet.</string>
     <string name="placeholder_long">

@@ -10,14 +10,19 @@
         android:id="@+id/listToolbar"
         layout="@layout/list_toolbar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listCrypto"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/listSwipeRefreshLayout"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/listToolbar"
-        android:layout_marginTop="8dp"
-        tools:listitem="@layout/list_item">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="8dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listCrypto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_item">
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/listProgressBar"
@@ -37,4 +42,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listToolbar"
         android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/listSwipeErrorMessage"
+        layout="@layout/error_swipe_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

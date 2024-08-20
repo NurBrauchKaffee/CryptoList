@@ -72,6 +72,7 @@ dependencies {
 
     // Picasso
     implementation(libs.picasso)
+    implementation(libs.androidx.swiperefreshlayout)
 
     testImplementation(libs.junit)
 

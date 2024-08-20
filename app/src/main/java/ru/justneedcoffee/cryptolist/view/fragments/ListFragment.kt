@@ -1,5 +1,6 @@
 package ru.justneedcoffee.cryptolist.view.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import ru.justneedcoffee.cryptolist.R
@@ -22,6 +24,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
     private val viewModel by viewModels<ListViewModel>()
     private lateinit var currencyType: String
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,10 +34,14 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         val listProgressBar: ProgressBar = view.findViewById(R.id.listProgressBar)
         listProgressBar.visibility = View.GONE
 
-        val listErrorMessage = view.findViewById<View>(R.id.listErrorMessage)
+        val listErrorMessage: View = view.findViewById(R.id.listErrorMessage)
         listErrorMessage.visibility = View.GONE
 
         val errorButton: Button = view.findViewById(R.id.errorButton)
+        val listSwipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.listSwipeRefreshLayout)
+
+        val listSwipeErrorMessage: View = view.findViewById(R.id.listSwipeErrorMessage)
+        listSwipeErrorMessage.visibility = View.GONE
 
         listCrypto.apply {
             this.layoutManager = LinearLayoutManager(this.context)
@@ -47,6 +54,12 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         errorButton.setOnClickListener {
             listProgressBar.visibility = View.VISIBLE
             loadList(currencyType, listProgressBar, listErrorMessage, listCrypto)
+        }
+
+        listSwipeRefreshLayout.setOnRefreshListener {
+            loadListSwipe(currencyType, listSwipeErrorMessage, listCrypto)
+            listCrypto.adapter?.notifyDataSetChanged()
+            listSwipeRefreshLayout.isRefreshing = false
         }
 
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -77,6 +90,17 @@ class ListFragment : Fragment(R.layout.list_fragment) {
                 (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(list)
                 listProgressBar.visibility = View.GONE
                 listErrorMessage.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun loadListSwipe(type: String, listSwipeErrorMessage: View, listCrypto: RecyclerView) {
+        viewModel.currencyListLiveData(type).observe(viewLifecycleOwner) { list ->
+            if (list.isEmpty()) {
+                listSwipeErrorMessage.postDelayed({ listSwipeErrorMessage.visibility = View.VISIBLE },2000)
+            } else {
+                listSwipeErrorMessage.visibility = View.GONE
+                (listCrypto.adapter as CurrencyRecyclerViewAdapter).submitList(list)
             }
         }
     }
